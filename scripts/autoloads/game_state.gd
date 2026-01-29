@@ -121,11 +121,9 @@ func find_province(province_name: String) -> Resource:
 
 func _get_starting_money(player_data: Resource) -> int:
 	# Starting money depends on background. Defaults to a modest amount.
-	# Once CharacterData has a background field, this can branch on it:
-	#   "merchant_son" -> 500, "ronin" -> 12, "noble" -> 200, etc.
-	if player_data and player_data.has_method("get"):
-		var bg = player_data.get("background")
-		match bg:
+	# Check that player_data is a CharacterData so we can access .background.
+	if player_data is CharacterData:
+		match player_data.background:
 			"ronin":
 				return 12
 			"peasant":

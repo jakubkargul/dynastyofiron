@@ -111,7 +111,10 @@ func _on_terrain_entered(area: Area3D) -> void:
 func _on_terrain_exited(area: Area3D) -> void:
 	# When leaving a terrain area, check if we're still inside another one.
 	# get_overlapping_areas() returns all areas the detector currently touches.
+	# NOTE: The exiting area may still be in the list during this callback,
+	# so we must filter it out to avoid using stale data.
 	var overlapping := _terrain_detector.get_overlapping_areas()
+	overlapping.erase(area)
 
 	if overlapping.is_empty():
 		# No terrain areas — back to default.

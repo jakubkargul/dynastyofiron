@@ -69,7 +69,6 @@ func get_defense_strength() -> int:
 # --- Public API ---
 
 func change_owner(new_clan_name: String) -> void:
-	var old_owner: String = owner_clan
 	owner_clan = new_clan_name
 	# Loyalty drops when ownership changes — the people don't know you yet.
 	loyalty = clampi(loyalty - 20, 0, 100)

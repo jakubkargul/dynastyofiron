@@ -88,11 +88,13 @@ func get_total_hours() -> int:
 
 func _advance_hour() -> void:
 	hour += 1
-	hour_passed.emit(hour)
 
+	# Check for day rollover BEFORE emitting, so we emit the correct hour (0, not 24).
 	if hour >= HOURS_PER_DAY:
 		hour = 0
 		_advance_day()
+
+	hour_passed.emit(hour)
 
 
 func _advance_day() -> void:
